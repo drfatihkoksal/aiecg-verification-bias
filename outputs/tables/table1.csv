@@ -1,0 +1,29 @@
+Characteristic,All,Echo within 30 days,No echo within 30 days
+"Patients, n","157,623","26,041","131,582"
+"Age, y",58 (43–71),66 (54–78),56 (41–69)
+Female,"82,861 (52.6)","12,017 (46.1)","70,844 (53.8)"
+Setting of the index ECG,,,
+  Outpatient,"82,552 (52.4)","10,695 (41.1)","71,857 (54.6)"
+  Emergency department,"51,570 (32.7)","8,963 (34.4)","42,607 (32.4)"
+  Inpatient,"23,501 (14.9)","6,383 (24.5)","17,118 (13.0)"
+Index ECG findings,,,
+  Atrial fibrillation or flutter,"9,586 (6.1)","3,657 (14.0)","5,929 (4.5)"
+  Left bundle branch block,"2,333 (1.5)",792 (3.0),"1,541 (1.2)"
+  Right bundle branch block,"7,020 (4.5)","1,885 (7.2)","5,135 (3.9)"
+  Left ventricular hypertrophy,"9,863 (6.3)","2,763 (10.6)","7,100 (5.4)"
+  Infarct or Q-wave statement,"23,182 (14.7)","6,692 (25.7)","16,490 (12.5)"
+  Low QRS voltage,"10,796 (6.8)","2,673 (10.3)","8,123 (6.2)"
+"  QRS duration, ms",90 (84–99),93 (85–104),90 (84–98)
+"  Heart rate, beats/min",74 (64–87),79 (66–96),74 (64–86)
+Recorded history,,,
+  Hypertension,"30,822 (19.6)","9,745 (37.4)","21,077 (16.0)"
+  Diabetes,"12,876 (8.2)","4,178 (16.0)","8,698 (6.6)"
+  Chronic kidney disease,"6,453 (4.1)","2,602 (10.0)","3,851 (2.9)"
+  COPD,"4,819 (3.1)","1,913 (7.3)","2,906 (2.2)"
+  Coronary artery disease or MI,730 (0.5),140 (0.5),590 (0.4)
+  Valve disease or prosthetic valve,682 (0.4),181 (0.7),501 (0.4)
+  TTE in the previous year,"5,251 (3.3)",720 (2.8),"4,531 (3.4)"
+Positive AI-ECG,,,
+  EchoNext-Mini,"19,923 (12.6)","7,903 (30.3)","12,020 (9.1)"
+  DeepECG-SL (matched positivity),"19,744 (12.5)","7,316 (28.1)","12,428 (9.4)"
+LVEF ≤45% on the verifying TTE,—,"4,415 (17.0)",—

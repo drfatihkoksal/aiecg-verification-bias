@@ -1,0 +1,42 @@
+addendum_to: verify_gap_spec_v2 (cohort_spec.yaml)
+frozen_at: '2026-11-01T04:20:23'
+frozen_before: any DeepECG-SL score computed in this project
+status: exploratory, added after the primary results were known (concept.md §6.8)
+model: heartwise/deepecg-sl_finetuned_LVEF_MHI; rise-spec loader and preprocessing; MIMIC parameters frozen 30 Oct 2026
+operating_points:
+  primary: 'matched positivity: predicted LVEF <= value flagging the EchoNext-Mini share of the intended-use analytic cohort
+    (scores only)'
+  secondary: predicted LVEF <= 45%
+estimators: as spec v2; verification model with the DeepECG score spline; naive, IPW (99th pct truncation), MNAR lambda grid,
+  1000 bootstrap resamples (seed 20261104)
+comparator: E1b (Otabor et al. 2026 design) pairs
+descriptive_gate: naive AUROC < 0.70 -> descriptive only
+prior_knowledge: rise-spec G2-D (prevalent LVSD code) AUROC 0.886; predicted LVEF quartiles 58.1/59.8/60.6
+files_sha256:
+  concept_frozen_deepecg_2026-11-01.md: 9dbe43cad19f91ffda91a18655c63037c776f6c88fad4c885494c28855230186
+  src/12_deepecg.py: fac5561e1d5dc126659198b30a33c08d163c9fb6f22a545141a34f3ea985b551
+  src/11_e1b_e5.py: e29e23ea67d14888d6d1b05af6490d0fc173c768963e26e7ee97609da76b7a17
+  src/wp3_design.py: 031d10419aa661826423eed7602e063f0bbed3668fa8291a872c39582421c63d
+  cohort_spec.yaml: 8171981cfab519b3cafd9b61f50c5e3cb8fa00fd60a24b817e74e71f29dfde16
+  /home/fatih/projects/rise-spec/analysis/14_deepecg_check.py: 090ed5005070e69488789aa5b503ebeb46c85f399c02aeddc0606dee86862cf8
+  /home/fatih/projects/rise-spec/analysis/15_deepecg_score.py: 96916c6cfff9f26454c774137e2118afcfb37abeb7ada7ffc4c124c7a6070abb
+  /home/fatih/projects/rise-spec/results/wp_d_g2.json: b519bcd62012a3dc0ed9ce90694073c5b1a3b03f5adef6e05ef891cc25ddc90e
+  /home/fatih/projects/rise-spec/external/deepecg/weights/deepecg-sl_finetuned_LVEF_MHI/LVEF_MSE_SL.pt: cc46c6e95f7e9e138f1460747ce3545db9e932a2431963bd478561b65f4926b7
+deviations:
+- logged_at: '2026-11-01T04:21:33'
+  before_any_cohort_score: true
+  what: guard tolerance changed from max |diff| < 0.001 to max < 0.05 and mean < 0.005 LVEF points; inference switched to
+    full FP32 (TF32 off)
+  why: 'first run stopped at the guard (max 0.0063). Diagnosis on the 300 guard ECGs: with TF32 on, changing only the batch
+    size changes outputs by up to 0.0065; FP32 is batch-invariant (7.6e-6); FP32 vs rise-spec (TF32) max 0.015, mean 0.001,
+    r = 0.99999998. Preprocessing reproduced; residual is GPU arithmetic.'
+  src/12_deepecg.py_sha256_after: 48a06ed3c2211a21a13cb5a3e442d5c36d17fc9f8c7c955160ae179375c092ec
+post_scoring_changes:
+- logged_at: '2026-11-01T05:46:58'
+  after_cohort_scoring: true
+  what: 'src/12_deepecg.py edited twice after the DeepECG-SL scores were written (1 Nov 2026, about 04:30 and 04:48):
+    (1) when cached scores are reused, the 300-ECG guard is re-run and its result recorded instead of the text
+    "cached run"; numpy values serialised in the JSON output; (2) NPV added to the MNAR output.'
+  effect: none on scores, thresholds or the estimates reported before the edits; the scores file is unchanged.
+  wp3_deepecg_scores.parquet_sha256: 8f8d9597c376f0ebad49bfc938de8b310541ed0eee013bd4b9ada4db1a6117e3
+  src/12_deepecg.py_sha256_current: be3f47badc46c6fa55a890a41f490d0583e05a5accec49bbc91bc4d8e10250ed

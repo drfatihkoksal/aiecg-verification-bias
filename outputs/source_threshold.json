@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-10-31T17:09:42",
+  "rule": "EchoNext-Mini notebook cell 19: first roc_curve point with sensitivity >= 0.70, positive = score >= cutoff; EchoNext test split",
+  "weights_sha256": "aac57aad0ec9763021c6264e89c74e3d78f8b711159b1880e5bd4515d5e21cd6",
+  "device": "cuda",
+  "versions": {
+    "torch": "2.11.0+cu128",
+    "sklearn": "1.9.0",
+    "numpy": "2.4.6"
+  },
+  "sanity_check_composite_shd": {
+    "result": {
+      "label": "shd_moderate_or_greater_flag",
+      "n": 5442,
+      "positives": 2318,
+      "auroc": 82.0,
+      "cutoff_prob": 0.42917895317077637,
+      "cutoff_logit": -0.2852017852263835,
+      "cutoff_score_0_100": 42.9179,
+      "flagged_pct": 42.5,
+      "sensitivity": [
+        70.1,
+        68.3,
+        71.9
+      ],
+      "specificity": [
+        77.9,
+        76.5,
+        79.4
+      ],
+      "ppv": [
+        70.2,
+        68.3,
+        72.0
+      ],
+      "npv": [
+        77.8,
+        76.4,
+        79.3
+      ]
+    },
+    "published": {
+      "sensitivity": 70.1,
+      "specificity": 77.9,
+      "ppv": 70.2,
+      "npv": 77.8
+    },
+    "reproduced": true
+  },
+  "lvef_lte_45": {
+    "label": "lvef_lte_45_flag",
+    "n": 5442,
+    "positives": 962,
+    "auroc": 85.2,
+    "cutoff_prob": 0.5675751566886902,
+    "cutoff_logit": 0.2719646366994876,
+    "cutoff_score_0_100": 56.7575,
+    "flagged_pct": 25.9,
+    "sensitivity": [
+      70.1,
+      67.0,
+      73.0
+    ],
+    "specificity": [
+      83.6,
+      82.5,
+      84.7
+    ],
+    "ppv": [
+      47.8,
+      45.3,
+      50.5
+    ],
+    "npv": [
+      92.9,
+      92.1,
+      93.7
+    ]
+  },
+  "lvef_lte_45_drop_intermediate_false": {
+    "cutoff_prob": 0.5675751566886902,
+    "same_cutoff": true
+  }
+}

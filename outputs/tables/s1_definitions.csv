@@ -1,0 +1,20 @@
+Item,Definition
+Coronary artery disease or MI,"ICD-10 I20, I21, I22, I23, I24, I25; ICD-9 410, 411, 412, 413, 414 (code prefixes)"
+Atrial fibrillation or flutter,ICD-10 I48; ICD-9 4273 (code prefixes)
+Valve disease,"ICD-10 I05, I06, I07, I08, I34, I35, I36, I37; ICD-9 394, 395, 396, 3970, 3971, 4240, 4241, 4242, 4243 (code prefixes)"
+Hypertension,"ICD-10 I10, I11, I12, I13, I15, I16; ICD-9 401, 402, 403, 404, 405 (code prefixes)"
+Diabetes,"ICD-10 E08, E09, E10, E11, E13; ICD-9 250 (code prefixes)"
+Chronic kidney disease,ICD-10 N18; ICD-9 585 (code prefixes)
+COPD,"ICD-10 J43, J44; ICD-9 491, 492, 496 (code prefixes)"
+"Prosthetic valve, status codes","ICD-10 Z952, Z953, Z954; ICD-9 V433, V422"
+"Prosthetic valve, procedures","ICD-10-PCS 02RF, 02RG, 02RH, 02RJ; ICD-9 352, 3505, 3506, 3507, 3508"
+Heart failure or cardiomyopathy (exclusion),"ICD-10 I50, I42; ICD-9 428, 425 (admissions discharged before the ECG)"
+ECG statement: lbbb,"regex `left bundle branch block|\blbbb\b`, excluding `incomplete|atypical`"
+ECG statement: rbbb,"regex `right bundle branch block|\brbbb\b`, excluding `incomplete|atypical`"
+ECG statement: infarct q,regex `infarct|q wave`
+ECG statement: lvh,"regex `left ventricular hypertrophy|\blvh\b`, excluding `normal variant`"
+ECG statement: low voltage,regex `low (?:qrs )?voltage`
+ED chief complaint: dyspnoea,regex `dyspn|\bsob\b|short(?:ness)? of breath|\bdoe\b|difficulty breathing|trouble breathing|resp(?:iratory)? distress|hypox`
+ED chief complaint: chest pain,regex `chest pain|\bcp\b|chest pressure|chest tight|chest discomfort|angina|\bn?stemi\b`
+ED chief complaint: syncope,regex `syncop|pre-?syncop|passed out|faint|loss of consciousness|\bloc\b`
+ED chief complaint: oedema,regex `(?<!angio)edema|(?<!angi)oedema|(?:leg|\ble|lower ext\w*|ankle|feet|foot|bilat\w*|extremit\w*) swelling|swelling (?:of )?(?:the )?(?:legs?|ankles?|feet|foot)`

@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-11-01T02:43:32",
+  "technical_exclusion": {
+    "cohort_wp1": 157841,
+    "load_failed": 0,
+    "flat_lead_records": 218,
+    "missing_lead_records": 0,
+    "excluded_total": 218,
+    "excluded_V30": 43,
+    "load_errors": {},
+    "analytic_cohort": 157623
+  },
+  "verified": {
+    "n": 26041,
+    "d1": 4415,
+    "prevalence_pct": 16.95
+  },
+  "G2": {
+    "rule": "naive AUROC >= 0.80 (point estimate)",
+    "naive_auroc": 0.8011,
+    "ci95_bootstrap_1000": [
+      0.7938,
+      0.8084
+    ],
+    "passed": true
+  }
+}

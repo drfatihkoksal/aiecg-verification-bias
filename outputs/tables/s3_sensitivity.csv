@@ -1,0 +1,10 @@
+Analysis,Type,Naive sens / spec,IPW sens / spec,Δ sensitivity,Δ specificity
+"Primary (0-30 d, midpoint rule, 99th pct truncation)",Prespecified,67.9 / 77.3,51.8 / 90.1,16.1 (14.9 to 17.3),-12.8 (-13.2 to -12.3)
+Verification window 0-365 d,Prespecified,66.0 / 79.6,51.9 / 90.4,14.1 (13.2 to 14.9),-10.8 (-11.1 to -10.4)
+LVEF ranges crossing 45% counted as LVSD,Prespecified,65.8 / 77.8,49.3 / 90.4,16.5 (15.4 to 17.5),-12.5 (-13.0 to -12.1)
+No weight truncation,Exploratory,67.9 / 77.3,51.0 / 90.8,16.9 (15.0 to 19.2),-13.5 (-14.0 to -13.0)
+Truncation at 95th percentile,Exploratory,67.9 / 77.3,52.2 / 89.5,15.7 (14.7 to 16.6),-12.1 (-12.6 to -11.8)
+Truncation at 99.5th percentile,Exploratory,67.9 / 77.3,51.7 / 90.4,16.2 (14.9 to 17.6),-13.1 (-13.6 to -12.7)
+Verification model + natriuretic peptide and troponin,Exploratory,67.9 / 77.3,55.5 / 89.3,12.4 (11.0 to 14.0),-12.0 (-12.4 to -11.5)
+Atrial rate set to 0 for every ECG,Exploratory,68.0 / 77.2,51.9 / 90.0,16.1 (15.0 to 17.3),-12.8 (-13.2 to -12.3)
+"Echo-anchored design, nearest ECG within ±30 d (fully verified)",Exploratory,71.3 / 77.6,—,—,—

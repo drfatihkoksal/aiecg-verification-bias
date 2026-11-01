@@ -1,0 +1,7 @@
+step,n_remaining,n_excluded
+first ECG per patient (MIMIC-IV-ECG),161352,
+"linked to MIMIC-IV patients, sex recorded",161332,20.0
+age >= 18 at index ECG,161287,45.0
+index ECG not paced,158903,2384.0
+no prior TTE with LVEF <= 45,158262,641.0
+no prior HF/cardiomyopathy code (dischtime < ECG),157841,421.0

@@ -1,0 +1,7 @@
+Model,Index test,LVEF ≤45%,LVEF >45%,Total
+EchoNext-Mini (frozen threshold),Positive,"2,998","4,905","7,903"
+,Negative,"1,417","16,721","18,138"
+,Total,"4,415","21,626","26,041"
+DeepECG-SL (matched positivity),Positive,"3,362","3,954","7,316"
+,Negative,999,"17,442","18,441"
+,Total,"4,361","21,396","25,757"

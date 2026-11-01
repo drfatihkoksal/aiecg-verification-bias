@@ -1,0 +1,205 @@
+{
+  "generated_at": "2026-11-01T04:16:52",
+  "status": "EXPLORATORY (post hoc)",
+  "threshold": 0.5675751566886902,
+  "E1b_flow": {
+    "eligible_tte": 157530,
+    "eligible_ecg": 751269,
+    "patients_paired": 47330,
+    "median_days_ecg_to_tte": 1.71,
+    "after_technical_exclusion": 47327
+  },
+  "primary_rule_reproduces_wp2_max_abs_logit_diff": 4.76837158203125e-07,
+  "E1b_primary_rule": {
+    "sens": {
+      "est": 74.06,
+      "ci": [
+        73.06,
+        75.04
+      ]
+    },
+    "spec": {
+      "est": 77.51,
+      "ci": [
+        77.09,
+        77.93
+      ]
+    },
+    "ppv": {
+      "est": 37.6,
+      "ci": [
+        36.83,
+        38.38
+      ]
+    },
+    "npv": {
+      "est": 94.23,
+      "ci": [
+        93.98,
+        94.5
+      ]
+    },
+    "prev": {
+      "est": 15.47,
+      "ci": [
+        15.16,
+        15.79
+      ]
+    },
+    "auroc": {
+      "est": 83.45,
+      "ci": [
+        83.01,
+        83.93
+      ]
+    },
+    "pct_test_positive": 30.47
+  },
+  "E1b_atrial_rate_0": {
+    "sens": {
+      "est": 74.15,
+      "ci": [
+        73.11,
+        75.13
+      ]
+    },
+    "spec": {
+      "est": 77.44,
+      "ci": [
+        77.02,
+        77.85
+      ]
+    },
+    "ppv": {
+      "est": 37.56,
+      "ci": [
+        36.76,
+        38.35
+      ]
+    },
+    "npv": {
+      "est": 94.24,
+      "ci": [
+        93.99,
+        94.51
+      ]
+    },
+    "prev": {
+      "est": 15.47,
+      "ci": [
+        15.16,
+        15.79
+      ]
+    },
+    "auroc": {
+      "est": 83.46,
+      "ci": [
+        83.01,
+        83.94
+      ]
+    },
+    "pct_test_positive": 30.54
+  },
+  "E1b_otabor_reported": {
+    "n": 45878,
+    "prev": 16.0,
+    "auroc": [
+      83.5,
+      83.0,
+      83.9
+    ],
+    "median_days": 2
+  },
+  "E5_score_shift": {
+    "mean_logit_change": 0.0044,
+    "pct_positive_primary": 12.64,
+    "pct_positive_ar0": 12.68,
+    "pct_test_result_changed": 0.04
+  },
+  "E5_intended_use_atrial_rate_0": {
+    "naive_sens": {
+      "est": 67.97,
+      "ci": [
+        66.63,
+        69.37
+      ]
+    },
+    "naive_spec": {
+      "est": 77.24,
+      "ci": [
+        76.67,
+        77.78
+      ]
+    },
+    "naive_ppv": {
+      "est": 37.87,
+      "ci": [
+        36.85,
+        38.99
+      ]
+    },
+    "naive_auroc": {
+      "est": 80.12,
+      "ci": [
+        79.42,
+        80.83
+      ]
+    },
+    "ipw_sens": {
+      "est": 51.87,
+      "ci": [
+        50.15,
+        53.7
+      ]
+    },
+    "ipw_spec": {
+      "est": 90.03,
+      "ci": [
+        89.73,
+        90.34
+      ]
+    },
+    "ipw_ppv": {
+      "est": 34.21,
+      "ci": [
+        33.11,
+        35.4
+      ]
+    },
+    "ipw_auroc": {
+      "est": 81.72,
+      "ci": [
+        80.61,
+        82.9
+      ]
+    },
+    "delta_sens": {
+      "est": 16.11,
+      "ci": [
+        15.0,
+        17.29
+      ]
+    },
+    "delta_spec": {
+      "est": -12.79,
+      "ci": [
+        -13.25,
+        -12.35
+      ]
+    },
+    "delta_ppv": {
+      "est": 3.66,
+      "ci": [
+        3.02,
+        4.31
+      ]
+    },
+    "delta_auroc": {
+      "est": -1.61,
+      "ci": [
+        -2.49,
+        -0.73
+      ]
+    }
+  }
+}

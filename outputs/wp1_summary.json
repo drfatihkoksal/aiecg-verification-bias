@@ -1,0 +1,131 @@
+{
+  "generated_at": "2026-11-01T02:09:07",
+  "tte_d_rule": {
+    "n_resting_tte": 179928,
+    "by_source": {
+      "reported": 133399,
+      "biplane": 27975,
+      "3d": 11541,
+      "none": 5270,
+      "text": 1743
+    },
+    "d1_primary": 30250,
+    "d0_primary": 144408,
+    "straddle": 3138,
+    "straddle_closed_midpoint_d1": 191,
+    "reported_upper_only_unused": 501
+  },
+  "flow": [
+    {
+      "step": "first ECG per patient (MIMIC-IV-ECG)",
+      "n_remaining": 161352
+    },
+    {
+      "step": "linked to MIMIC-IV patients, sex recorded",
+      "n_remaining": 161332,
+      "n_excluded": 20
+    },
+    {
+      "step": "age >= 18 at index ECG",
+      "n_remaining": 161287,
+      "n_excluded": 45
+    },
+    {
+      "step": "index ECG not paced",
+      "n_remaining": 158903,
+      "n_excluded": 2384
+    },
+    {
+      "step": "no prior TTE with LVEF <= 45",
+      "n_remaining": 158262,
+      "n_excluded": 641
+    },
+    {
+      "step": "no prior HF/cardiomyopathy code (dischtime < ECG)",
+      "n_remaining": 157841,
+      "n_excluded": 421
+    }
+  ],
+  "paced_subtypes_excluded": [
+    {
+      "paced_subtype": "ventricular_paced",
+      "n": 942
+    },
+    {
+      "paced_subtype": "paced_unspecified",
+      "n": 859
+    },
+    {
+      "paced_subtype": "atrial_paced",
+      "n": 583
+    }
+  ],
+  "cohort_n": 157841,
+  "setting": {
+    "outpatient": 82652,
+    "ED": 51619,
+    "inpatient": 23570
+  },
+  "era": {
+    "2008-2010": 54936,
+    "2011-2013": 39715,
+    "2014-2016": 38904,
+    "2017-2019": 24154,
+    "2020-2022": 132
+  },
+  "rhythm": {
+    "SR": 144139,
+    "AF": 8336,
+    "other": 2865,
+    "atrial_flutter": 1265,
+    "other_named_rhythm": 861,
+    "uncertain_machine": 375
+  },
+  "verification": {
+    "V30_n": 26084,
+    "V30_pct": 16.53,
+    "V365_n": 35391,
+    "V365_pct": 22.42,
+    "by_setting": [
+      {
+        "setting": "ED",
+        "n": 51619,
+        "V30": 17.4,
+        "V365": 20.2
+      },
+      {
+        "setting": "inpatient",
+        "n": 23570,
+        "V30": 27.2,
+        "V365": 32.7
+      },
+      {
+        "setting": "outpatient",
+        "n": 82652,
+        "V30": 13.0,
+        "V365": 20.9
+      }
+    ],
+    "V30_days_median_iqr": [
+      1.53,
+      0.73,
+      4.04
+    ],
+    "V30_source": {
+      "reported": 25351,
+      "biplane": 551,
+      "3d": 144,
+      "text": 38
+    },
+    "unverified_died_within_30d": 2524,
+    "prior_tte_365_pct": 3.34
+  },
+  "G1": {
+    "rule": ">= 100 verified (V30) cases with LVEF <= 45 (primary D rule)",
+    "verified_cases_primary": 4423,
+    "verified_cases_sensitivity_straddle_as_1": 4908,
+    "prevalence_among_verified_pct": 16.96,
+    "V365_cases_primary": 5323,
+    "passed": true
+  }
+}

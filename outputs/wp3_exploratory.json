@@ -1,0 +1,303 @@
+{
+  "generated_at": "2026-11-01T04:07:02",
+  "status": "EXPLORATORY (post hoc)",
+  "reproduces_07_point_estimates": true,
+  "E1_conventional": {
+    "design": "resting TTE with LVEF info + nearest non-paced adult ECG within +-30 d; first such TTE per patient; prior LVSD/HF not excluded",
+    "n_pairs": 47161,
+    "technical_exclusion": 103,
+    "n": 47058,
+    "pct_patients_also_in_intended_use_cohort": 96.8,
+    "sens": {
+      "est": 71.32,
+      "ci": [
+        70.23,
+        72.34
+      ]
+    },
+    "spec": {
+      "est": 77.56,
+      "ci": [
+        77.15,
+        77.94
+      ]
+    },
+    "ppv": {
+      "est": 37.89,
+      "ci": [
+        37.08,
+        38.72
+      ]
+    },
+    "npv": {
+      "est": 93.37,
+      "ci": [
+        93.09,
+        93.66
+      ]
+    },
+    "prev": {
+      "est": 16.1,
+      "ci": [
+        15.77,
+        16.44
+      ]
+    },
+    "auroc": {
+      "est": 82.09,
+      "ci": [
+        81.6,
+        82.59
+      ]
+    }
+  },
+  "E2_tipping_points": {
+    "naive_sens": 67.9,
+    "naive_spec": 77.32,
+    "prev_verified_pct": 16.95,
+    "implied_prev_unverified_at_lambda1_pct": 6.86,
+    "sens": {
+      "lambda": 0.1838,
+      "mnar_sens": 62.9,
+      "mnar_spec": 89.56,
+      "implied_prev_unverified_pct": 1.67
+    },
+    "spec": {
+      "lambda": 1023.7908,
+      "mnar_sens": 11.55,
+      "mnar_spec": 82.32,
+      "implied_prev_unverified_pct": 95.17
+    }
+  },
+  "E3_labs_availability_pct": {
+    "bnp_measured": 4.13,
+    "trop_measured": 27.0,
+    "trop_elevated": 6.56,
+    "V30_if_bnp_measured": 56.9,
+    "V30_if_trop_measured": 32.8
+  },
+  "E3_verification_c_statistic": {
+    "base": 0.7713,
+    "with_labs": 0.8046
+  },
+  "E4_none": {
+    "sens": {
+      "est": 51.01,
+      "ci": [
+        48.34,
+        53.44
+      ]
+    },
+    "spec": {
+      "est": 90.79,
+      "ci": [
+        90.51,
+        91.09
+      ]
+    },
+    "ppv": {
+      "est": 34.35,
+      "ci": [
+        33.2,
+        35.62
+      ]
+    },
+    "auroc": {
+      "est": 81.81,
+      "ci": [
+        79.25,
+        83.7
+      ]
+    },
+    "d_sens": {
+      "est": 16.9,
+      "ci": [
+        15.02,
+        19.25
+      ]
+    },
+    "d_spec": {
+      "est": -13.47,
+      "ci": [
+        -13.96,
+        -13.02
+      ]
+    }
+  },
+  "E4_p95": {
+    "sens": {
+      "est": 52.24,
+      "ci": [
+        50.56,
+        54.01
+      ]
+    },
+    "spec": {
+      "est": 89.45,
+      "ci": [
+        89.17,
+        89.73
+      ]
+    },
+    "ppv": {
+      "est": 34.4,
+      "ci": [
+        33.31,
+        35.59
+      ]
+    },
+    "auroc": {
+      "est": 81.15,
+      "ci": [
+        80.06,
+        82.26
+      ]
+    },
+    "d_sens": {
+      "est": 15.67,
+      "ci": [
+        14.65,
+        16.62
+      ]
+    },
+    "d_spec": {
+      "est": -12.13,
+      "ci": [
+        -12.57,
+        -11.75
+      ]
+    }
+  },
+  "E4_p99_primary": {
+    "sens": {
+      "est": 51.81,
+      "ci": [
+        50.01,
+        53.69
+      ]
+    },
+    "spec": {
+      "est": 90.08,
+      "ci": [
+        89.8,
+        90.4
+      ]
+    },
+    "ppv": {
+      "est": 34.31,
+      "ci": [
+        33.18,
+        35.56
+      ]
+    },
+    "auroc": {
+      "est": 81.72,
+      "ci": [
+        80.56,
+        82.87
+      ]
+    },
+    "d_sens": {
+      "est": 16.09,
+      "ci": [
+        14.89,
+        17.25
+      ]
+    },
+    "d_spec": {
+      "est": -12.77,
+      "ci": [
+        -13.25,
+        -12.36
+      ]
+    }
+  },
+  "E4_p99.5": {
+    "sens": {
+      "est": 51.67,
+      "ci": [
+        49.73,
+        53.61
+      ]
+    },
+    "spec": {
+      "est": 90.43,
+      "ci": [
+        90.15,
+        90.72
+      ]
+    },
+    "ppv": {
+      "est": 34.35,
+      "ci": [
+        33.2,
+        35.62
+      ]
+    },
+    "auroc": {
+      "est": 82.01,
+      "ci": [
+        80.75,
+        83.26
+      ]
+    },
+    "d_sens": {
+      "est": 16.23,
+      "ci": [
+        14.9,
+        17.57
+      ]
+    },
+    "d_spec": {
+      "est": -13.11,
+      "ci": [
+        -13.6,
+        -12.67
+      ]
+    }
+  },
+  "E3_labs": {
+    "sens": {
+      "est": 55.52,
+      "ci": [
+        53.45,
+        57.6
+      ]
+    },
+    "spec": {
+      "est": 89.28,
+      "ci": [
+        88.96,
+        89.62
+      ]
+    },
+    "ppv": {
+      "est": 32.05,
+      "ci": [
+        30.78,
+        33.38
+      ]
+    },
+    "auroc": {
+      "est": 82.44,
+      "ci": [
+        81.16,
+        83.77
+      ]
+    },
+    "d_sens": {
+      "est": 12.39,
+      "ci": [
+        10.96,
+        13.96
+      ]
+    },
+    "d_spec": {
+      "est": -11.96,
+      "ci": [
+        -12.45,
+        -11.52
+      ]
+    }
+  }
+}

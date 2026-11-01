@@ -1,0 +1,340 @@
+{
+  "generated_at": "2026-11-01T01:54:45",
+  "note": "score-blind; approximate cohort skeleton, not the frozen WP1 cohort",
+  "A_lvef_coding_resting_tte": {
+    "n_tte": 179928,
+    "by_d45": {
+      "neg": 141581,
+      "pos": 29853,
+      "straddle": 3224,
+      "none": 5270
+    },
+    "by_source_and_d45": [
+      {
+        "src": "3d",
+        "d45": "neg",
+        "n": 9996
+      },
+      {
+        "src": "3d",
+        "d45": "pos",
+        "n": 1545
+      },
+      {
+        "src": "biplane",
+        "d45": "neg",
+        "n": 24135
+      },
+      {
+        "src": "biplane",
+        "d45": "pos",
+        "n": 3840
+      },
+      {
+        "src": "none",
+        "d45": "none",
+        "n": 5270
+      },
+      {
+        "src": "reported",
+        "d45": "neg",
+        "n": 106104
+      },
+      {
+        "src": "reported",
+        "d45": "pos",
+        "n": 24205
+      },
+      {
+        "src": "reported",
+        "d45": "straddle",
+        "n": 3090
+      },
+      {
+        "src": "text",
+        "d45": "neg",
+        "n": 1346
+      },
+      {
+        "src": "text",
+        "d45": "pos",
+        "n": 263
+      },
+      {
+        "src": "text",
+        "d45": "straddle",
+        "n": 134
+      }
+    ],
+    "top_straddling_reported_ranges": [
+      {
+        "range": "45.0-50.0",
+        "n": 2704
+      },
+      {
+        "range": "40.0-50.0",
+        "n": 186
+      },
+      {
+        "range": "45.0-55.0",
+        "n": 65
+      },
+      {
+        "range": "40.0-100.0",
+        "n": 23
+      },
+      {
+        "range": "45.0-100.0",
+        "n": 20
+      },
+      {
+        "range": "40.0-open",
+        "n": 14
+      },
+      {
+        "range": "30.0-100.0",
+        "n": 12
+      },
+      {
+        "range": "35.0-100.0",
+        "n": 11
+      }
+    ],
+    "straddle_vs_definite_pos": 0.108
+  },
+  "cohort_flow": {
+    "all_first_ecg": 161332,
+    "adult": 161287,
+    "adult_paced": 2384,
+    "adult_nonpaced_prior_lvsd_hf": 1048,
+    "cohort_skeleton": 157855
+  },
+  "paced_subtypes_adult_first_ecg": [
+    {
+      "paced_subtype": "ventricular_paced",
+      "n": 942
+    },
+    {
+      "paced_subtype": "paced_unspecified",
+      "n": 859
+    },
+    {
+      "paced_subtype": "atrial_paced",
+      "n": 583
+    }
+  ],
+  "B_verification_timing_pct": [
+    {
+      "setting": "ED",
+      "n": 49886,
+      "v1": 7.4,
+      "v7": 15.9,
+      "v14": 16.7,
+      "v30": 17.4,
+      "v90": 18.5,
+      "v365": 20.3,
+      "pct_of_v30_after_day14": 4.3
+    },
+    {
+      "setting": "inpatient",
+      "n": 25308,
+      "v1": 11.9,
+      "v7": 22.9,
+      "v14": 24.8,
+      "v30": 26.4,
+      "v90": 28.6,
+      "v365": 31.6,
+      "pct_of_v30_after_day14": 6.1
+    },
+    {
+      "setting": "outpatient",
+      "n": 82661,
+      "v1": 4.2,
+      "v7": 9.5,
+      "v14": 11.0,
+      "v30": 13.0,
+      "v90": 15.9,
+      "v365": 20.9,
+      "pct_of_v30_after_day14": 14.9
+    },
+    {
+      "setting": null,
+      "n": 157855,
+      "v1": 6.5,
+      "v7": 13.7,
+      "v14": 15.0,
+      "v30": 16.5,
+      "v90": 18.7,
+      "v365": 22.4,
+      "pct_of_v30_after_day14": 9.1
+    }
+  ],
+  "B_any_tte_vs_tte_with_ef_info_30d_pct": {
+    "any_tte_30": 16.7,
+    "tte_with_ef_info_30": 16.53
+  },
+  "B_prior_tte_before_index_pct": {
+    "prior_tte_30d_pct": 1.71,
+    "prior_tte_365d_pct": 3.3
+  },
+  "C_prosthetic_valve_in_cohort_skeleton": {
+    "n": 157855,
+    "prior_code": 78,
+    "index_admission_status_code": 285,
+    "prior_tte": 161,
+    "any_pre_index": 468,
+    "only_on_verifying_tte_30d": 552,
+    "of_which_valve_surgery_in_index_admission": 111,
+    "valve_surgery_in_index_admission_no_pre_index": 474
+  },
+  "C_codes_seen_dx": [
+    {
+      "icd_version": "10",
+      "icd_code": "Z952",
+      "title": "Presence of prosthetic heart valve",
+      "n": 3800
+    },
+    {
+      "icd_version": "9",
+      "icd_code": "V433",
+      "title": "Heart valve replaced by other means",
+      "n": 3043
+    },
+    {
+      "icd_version": "9",
+      "icd_code": "V422",
+      "title": "Heart valve replaced by transplant",
+      "n": 1796
+    },
+    {
+      "icd_version": "10",
+      "icd_code": "Z953",
+      "title": "Presence of xenogenic heart valve",
+      "n": 1575
+    },
+    {
+      "icd_version": "10",
+      "icd_code": "Z954",
+      "title": "Presence of other heart-valve replacement",
+      "n": 614
+    }
+  ],
+  "C_codes_seen_px": [
+    {
+      "stem": "02RF",
+      "icd_version": "10",
+      "example_title": "Replacement of Aortic Valve with Zooplastic Tissue, Open Approach",
+      "n": 2378
+    },
+    {
+      "stem": "3521",
+      "icd_version": "9",
+      "example_title": "Open and other replacement of aortic valve with tissue graft",
+      "n": 1297
+    },
+    {
+      "stem": "02RG",
+      "icd_version": "10",
+      "example_title": "Replacement of Mitral Valve with Autologous Tissue Substitute, Open Approach",
+      "n": 413
+    },
+    {
+      "stem": "3522",
+      "icd_version": "9",
+      "example_title": "Open and other replacement of aortic valve",
+      "n": 389
+    },
+    {
+      "stem": "3505",
+      "icd_version": "9",
+      "example_title": "Endovascular replacement of aortic valve",
+      "n": 234
+    },
+    {
+      "stem": "3523",
+      "icd_version": "9",
+      "example_title": "Open and other replacement of mitral valve with tissue graft",
+      "n": 196
+    },
+    {
+      "stem": "3524",
+      "icd_version": "9",
+      "example_title": "Open and other replacement of mitral valve",
+      "n": 124
+    },
+    {
+      "stem": "02RJ",
+      "icd_version": "10",
+      "example_title": "Replacement of Tricuspid Valve with Zooplastic Tissue, Open Approach",
+      "n": 38
+    },
+    {
+      "stem": "3527",
+      "icd_version": "9",
+      "example_title": "Open and other replacement of tricuspid valve with tissue graft",
+      "n": 23
+    },
+    {
+      "stem": "3506",
+      "icd_version": "9",
+      "example_title": "Transapical replacement of aortic valve",
+      "n": 19
+    },
+    {
+      "stem": "3525",
+      "icd_version": "9",
+      "example_title": "Open and other replacement of pulmonary valve with tissue graft",
+      "n": 3
+    },
+    {
+      "stem": "3528",
+      "icd_version": "9",
+      "example_title": "Open and other replacement of tricuspid valve",
+      "n": 1
+    },
+    {
+      "stem": "02RH",
+      "icd_version": "10",
+      "example_title": "Replacement of Pulmonary Valve with Zooplastic Tissue, Open Approach",
+      "n": 1
+    }
+  ],
+  "D_rhythm_index_ecg": [
+    {
+      "rhythm": "SR",
+      "n": 144148,
+      "pct": 91.3,
+      "v30": 14.8
+    },
+    {
+      "rhythm": "AF",
+      "n": 8341,
+      "pct": 5.3,
+      "v30": 38.3
+    },
+    {
+      "rhythm": "other",
+      "n": 2865,
+      "pct": 1.8,
+      "v30": 22.2
+    },
+    {
+      "rhythm": "atrial_flutter",
+      "n": 1265,
+      "pct": 0.8,
+      "v30": 36.8
+    },
+    {
+      "rhythm": "other_named_rhythm",
+      "n": 861,
+      "pct": 0.5,
+      "v30": 34.8
+    },
+    {
+      "rhythm": "uncertain_machine",
+      "n": 375,
+      "pct": 0.2,
+      "v30": 30.4
+    }
+  ]
+}

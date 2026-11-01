@@ -1,0 +1,193 @@
+{
+  "generated_at": "2026-11-01T02:40:59",
+  "n": 157841,
+  "flags": {
+    "prior_admission": {
+      "n": 16612,
+      "pct": 10.52,
+      "V30_if_present_pct": 10.3,
+      "V30_if_absent_pct": 17.3
+    },
+    "prior_cad_mi": {
+      "n": 731,
+      "pct": 0.46,
+      "V30_if_present_pct": 19.2,
+      "V30_if_absent_pct": 16.5
+    },
+    "prior_af": {
+      "n": 410,
+      "pct": 0.26,
+      "V30_if_present_pct": 21.5,
+      "V30_if_absent_pct": 16.5
+    },
+    "prior_valve_dx": {
+      "n": 217,
+      "pct": 0.14,
+      "V30_if_present_pct": 17.1,
+      "V30_if_absent_pct": 16.5
+    },
+    "prior_htn": {
+      "n": 5431,
+      "pct": 3.44,
+      "V30_if_present_pct": 14.7,
+      "V30_if_absent_pct": 16.6
+    },
+    "prior_dm": {
+      "n": 2272,
+      "pct": 1.44,
+      "V30_if_present_pct": 13.6,
+      "V30_if_absent_pct": 16.6
+    },
+    "prior_ckd": {
+      "n": 811,
+      "pct": 0.51,
+      "V30_if_present_pct": 17.9,
+      "V30_if_absent_pct": 16.5
+    },
+    "prior_copd": {
+      "n": 535,
+      "pct": 0.34,
+      "V30_if_present_pct": 15.7,
+      "V30_if_absent_pct": 16.5
+    },
+    "index_admitted": {
+      "n": 54569,
+      "pct": 34.57,
+      "V30_if_present_pct": 27.5,
+      "V30_if_absent_pct": 10.7
+    },
+    "hx_htn": {
+      "n": 30889,
+      "pct": 19.57,
+      "V30_if_present_pct": 31.6,
+      "V30_if_absent_pct": 12.9
+    },
+    "hx_dm": {
+      "n": 12902,
+      "pct": 8.17,
+      "V30_if_present_pct": 32.5,
+      "V30_if_absent_pct": 15.1
+    },
+    "hx_ckd": {
+      "n": 6465,
+      "pct": 4.1,
+      "V30_if_present_pct": 40.3,
+      "V30_if_absent_pct": 15.5
+    },
+    "hx_copd": {
+      "n": 4836,
+      "pct": 3.06,
+      "V30_if_present_pct": 39.7,
+      "V30_if_absent_pct": 15.8
+    },
+    "prosthesis_pre_index": {
+      "n": 468,
+      "pct": 0.3,
+      "V30_if_present_pct": 30.8,
+      "V30_if_absent_pct": 16.5
+    },
+    "prior_valve": {
+      "n": 682,
+      "pct": 0.43,
+      "V30_if_present_pct": 26.5,
+      "V30_if_absent_pct": 16.5
+    },
+    "ecg_lbbb": {
+      "n": 2336,
+      "pct": 1.48,
+      "V30_if_present_pct": 33.9,
+      "V30_if_absent_pct": 16.3
+    },
+    "ecg_rbbb": {
+      "n": 7023,
+      "pct": 4.45,
+      "V30_if_present_pct": 26.8,
+      "V30_if_absent_pct": 16.0
+    },
+    "ecg_infarct_q": {
+      "n": 23214,
+      "pct": 14.71,
+      "V30_if_present_pct": 28.9,
+      "V30_if_absent_pct": 14.4
+    },
+    "ecg_lvh": {
+      "n": 9866,
+      "pct": 6.25,
+      "V30_if_present_pct": 28.0,
+      "V30_if_absent_pct": 15.8
+    },
+    "ecg_low_voltage": {
+      "n": 10802,
+      "pct": 6.84,
+      "V30_if_present_pct": 24.8,
+      "V30_if_absent_pct": 15.9
+    },
+    "ecg_af_flutter": {
+      "n": 9601,
+      "pct": 6.08,
+      "V30_if_present_pct": 38.1,
+      "V30_if_absent_pct": 15.1
+    },
+    "ed_cc_dyspnoea": {
+      "n": 4630,
+      "pct": 2.93,
+      "V30_if_present_pct": 30.8,
+      "V30_if_absent_pct": 16.1
+    },
+    "ed_cc_chest_pain": {
+      "n": 9315,
+      "pct": 5.9,
+      "V30_if_present_pct": 18.7,
+      "V30_if_absent_pct": 16.4
+    },
+    "ed_cc_syncope": {
+      "n": 3334,
+      "pct": 2.11,
+      "V30_if_present_pct": 15.1,
+      "V30_if_absent_pct": 16.6
+    },
+    "ed_cc_oedema": {
+      "n": 433,
+      "pct": 0.27,
+      "V30_if_present_pct": 35.1,
+      "V30_if_absent_pct": 16.5
+    },
+    "ed_cc_missing": {
+      "n": 3,
+      "pct": 0.0,
+      "V30_if_present_pct": 33.3,
+      "V30_if_absent_pct": 16.5
+    },
+    "ed_cc_other": {
+      "n": 34984,
+      "pct": 22.16,
+      "V30_if_present_pct": 15.5,
+      "V30_if_absent_pct": 16.8
+    }
+  },
+  "numeric": {
+    "hr": {
+      "missing_pct": 0.1,
+      "median_iqr": [
+        74.1,
+        64.0,
+        87.1
+      ]
+    },
+    "qrs_ms": {
+      "missing_pct": 0.11,
+      "median_iqr": [
+        90.0,
+        84.0,
+        99.0
+      ]
+    }
+  },
+  "ed_stays_with_index_ecg": 51619,
+  "prosthesis_pre_index_sources": {
+    "prior_status_code": 70,
+    "prior_procedure": 8,
+    "index_admission_status_code": 285,
+    "prior_tte_descriptor": 161
+  }
+}

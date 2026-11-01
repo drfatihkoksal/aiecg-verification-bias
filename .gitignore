@@ -1,0 +1,12 @@
+# Patient-level outputs and codebooks listing free-text fields (PhysioNet DUA): never commit
+*.parquet
+outputs/wp2_chunks/
+outputs/codebook_*.csv
+outputs/*_test.json
+*.log
+# Third-party articles
+/*.pdf
+# Build products and caches
+build/
+*.docx
+__pycache__/

@@ -1,0 +1,160 @@
+spec_version: verify_gap_spec_v2
+supersedes:
+  version: verify_gap_spec_v1
+  file: cohort_spec_v1.yaml
+  reason: HTN/DM/CKD/COPD also from the index admission (hx_*) + index_admitted indicator; WP2 script added. No MIMIC score
+    existed when v1 was replaced.
+frozen_at: '2026-11-01T02:42:23'
+frozen_before: 'WP2: scoring of MIMIC index ECGs with EchoNext-Mini. No MIMIC score exists at freeze time.'
+concept_snapshot: concept_frozen_v2_2026-11-01.md
+index_test:
+  model: EchoNext-Mini (echonext_multilabel_minimodel), output lvef_lte_45 (index 0), frozen
+  pipeline: afef src/mimic_to_echonext.py + src/08_mimic_tabular.py, unchanged (afef cohort_spec_v1)
+  threshold:
+    rule: 'EchoNext-Mini notebook cell 19: first roc_curve point with sensitivity >= 0.70, positive = score >= cutoff; EchoNext
+      test split'
+    positive_if_sigmoid_gte: 0.5675751566886902
+    source_split_metrics:
+      sensitivity:
+      - 70.1
+      - 67.0
+      - 73.0
+      specificity:
+      - 83.6
+      - 82.5
+      - 84.7
+      ppv:
+      - 47.8
+      - 45.3
+      - 50.5
+      npv:
+      - 92.9
+      - 92.1
+      - 93.7
+    rule_check_composite_shd_reproduced: true
+  technical_exclusion: load/format failure (afef checks), or any of 12 raw leads flat (SD < 1e-6 ADC) or entirely missing;
+    applied in WP2 (src/05_wp2_score.py)
+cohort:
+  unit: first ECG per patient in MIMIC-IV-ECG v1.0 (ecg_time, then study_id)
+  exclusions:
+  - not linked to MIMIC-IV patients or sex missing
+  - age < 18 at index ECG
+  - index ECG paced (any pacing statement, afef rhythm_rules_v2)
+  - prior resting TTE with D = 1 (section 6.3 rule)
+  - I50/428/I42/425 on an admission with dischtime < index ECG time
+  not_excluded:
+  - prosthetic valves (pre-index evidence enters X)
+  - any non-paced rhythm
+  setting_rule: ED if within an ED stay, else inpatient if within an admission, else outpatient
+  flow:
+  - step: first ECG per patient (MIMIC-IV-ECG)
+    n_remaining: 161352
+  - step: linked to MIMIC-IV patients, sex recorded
+    n_remaining: 161332
+    n_excluded: 20
+  - step: age >= 18 at index ECG
+    n_remaining: 161287
+    n_excluded: 45
+  - step: index ECG not paced
+    n_remaining: 158903
+    n_excluded: 2384
+  - step: no prior TTE with LVEF <= 45
+    n_remaining: 158262
+    n_excluded: 641
+  - step: no prior HF/cardiomyopathy code (dischtime < ECG)
+    n_remaining: 157841
+    n_excluded: 421
+verification:
+  V: first resting TTE with LVEF information, 0-30 days after the index ECG
+  D_primary: biplane > reported range (midpoint rule for closed straddlers, lower-bound rule if open-ended) > 3D > text; LVEF
+    <= 45
+  D_sensitivity: all straddling studies D = 1
+  window_sensitivity: 0-365 days
+  V30: 26084
+  V30_pct: 16.53
+  G1:
+    rule: '>= 100 verified (V30) cases with LVEF <= 45 (primary D rule)'
+    verified_cases_primary: 4423
+    verified_cases_sensitivity_straddle_as_1: 4908
+    prevalence_among_verified_pct: 16.96
+    V365_cases_primary: 5323
+    passed: true
+verification_model:
+  form: logistic regression; AI score and age as restricted cubic splines
+  X:
+  - AI score
+  - age
+  - sex
+  - era (approx year from anchor_year_group)
+  - setting
+  - ecg_af_flutter
+  - ecg_lbbb
+  - ecg_rbbb
+  - ecg_infarct_q
+  - ecg_lvh
+  - ecg_low_voltage
+  - qrs_ms
+  - hr
+  - prior_admission
+  - index_admitted
+  - prior_cad_mi
+  - prior_af
+  - prior_valve (incl. pre-index prosthesis)
+  - hx_htn
+  - hx_dm
+  - hx_ckd
+  - hx_copd
+  - prior_tte_365
+  - ed_cc_dyspnoea
+  - ed_cc_chest_pain
+  - ed_cc_syncope
+  - ed_cc_oedema
+  - ed_cc_other
+  - ed_cc_missing
+  codebooks:
+  - outputs/codebook_icd.csv
+  - outputs/codebook_ecg_statements.csv
+  - outputs/codebook_ed_cc.csv
+estimators:
+  naive: verified only
+  primary: IPW 1/P(V=1|X), weights truncated at 99th percentile
+  mnar:
+    lambda:
+    - 0.25
+    - 0.5
+    - 0.75
+    - 1
+    - 1.5
+    - 2
+    consistency_check: lambda = 1 ~ IPW
+  bootstrap: 1000 patient resamples, models refitted, threshold fixed
+  primary_estimand: delta sens and delta spec (naive - IPW); materiality 5 percentage points
+  gate_G2: naive AUROC >= 0.80
+files_sha256:
+  concept_frozen_v2_2026-11-01.md: 2649fbcde4e527501ab390786dfe12ee8970c19ae8478b50e334d48f46813ea9
+  src/00_decision_inputs.py: 965291458b8e68e8c5f602017c22954acf860d33526b96fc743c61fbef97f55e
+  src/01_source_threshold.py: bddf43f2b765373a77b5b3d7efb703a705447049e35b58c414b4195667028bd8
+  src/02_wp1_cohort.py: 75ef11bc66b3082dff605f9f4fd9136254405f06c7eaab77b45288507e13f258
+  src/03_wp1b_covariates.py: 067247f900f51aee2d0a6594755c0c9fe84f95c9fa088481575f1b410d68c2dc
+  src/04_freeze_spec.py: 0048e3d8e8b2593a97d122b32e321cfe00d152766a14a8d18462eb4c5fd6727e
+  src/05_wp2_score.py: c607f73e5f73ca29098820454addf481deecdb7e0b90d32ae59e82d410fb7fa1
+  outputs/source_threshold.json: 130742e58dca4b86de9558e68b96ef6596dad539385aeba71cf374103bbe7e3e
+  outputs/decision_inputs.json: 18047847fb90783bfb66c4a4e8ae2c975877ad4eff3b4c5ddd18c9e0c4208f7c
+  outputs/wp1_tte_d45.parquet: 995f0143df5d8c64c5c247393c692a8ce6ac8958cd97eb0106b9dd7ae3e66b1e
+  outputs/wp1_cohort.parquet: 04dc6a9acb7ed720b5b051c41247143b7efd56dec71b25112b41d18837fb4f43
+  outputs/wp1_flow.csv: c0bbec5bb06b74fc865a6bd9ba61b368dee14cf1a55a26d1a622a8fa9cd81280
+  outputs/wp1_summary.json: 538ca244bda4cba937dd00d54f17276e2fadfdf8592f5e44d5952819c2ee6ccf
+  outputs/wp1b_covariates.parquet: 3b96849138a0a6859c5db2be5809e3554d022bed99be6f51612dbe8d47825bcc
+  outputs/wp1b_summary.json: 124ef9995fda8db9f1d49c0a0c723c7e3e7cdd3cc08e6b1140a537b54ca31fce
+  outputs/codebook_icd.csv: 14389b7aa83029eb78e2393ccda07216f8df62dab1b1ae9539243d574482166d
+  outputs/codebook_ecg_statements.csv: ef49544a11723497f0e08ce90acab3f44ef15c900ce694604568e25343f5889f
+  outputs/codebook_ed_cc.csv: 313e6fcf90ae50be69b62d44c7c2f0f7714a15bc750efa1b93928560133281fa
+  /home/fatih/projects/afef/outputs/echo_ef_studies.parquet: d572634aa52ba67ae4da65cb4e22f82c85c8d27d3d555228e02243da9c083afa
+  /home/fatih/projects/afef/outputs/ecg_rhythm_candidates.parquet: 2a275ca4d841376102a2d21fb5b5a3f31eb4b8b76000c8e591a7008065db7fc9
+  /home/fatih/projects/afef/outputs/ecg_tabular_features.parquet: fe6d8fd3515f266da832640df1aa2ff51d7a04f26a4669e0527818c6964fe22e
+  /home/fatih/projects/afef/src/02_rhythm_screen.py: b5cfa90be703f467d9db34766876e0de5bf84a84b6a3e2bb05c09b5cc5e13c40
+  /home/fatih/projects/afef/src/mimic_to_echonext.py: 11c3a5a5c0f4a24ecc8cd407fc5db090f40b3b8b01528827fff172b11e0ef8e8
+  /home/fatih/projects/afef/src/08_mimic_tabular.py: d813b8af9932d787adb6d29884ab301b1dee4186daa20654ae70f5375c46b5ec
+  /home/fatih/projects/afef/models/echonext_minimodel/weights.pt: aac57aad0ec9763021c6264e89c74e3d78f8b711159b1880e5bd4515d5e21cd6
+  /home/fatih/projects/afef/models/echonext_minimodel/waveform_normalization_params.json: f3fc58aa37984bb58c7d47aa73f7a623c40fe0fd13f4c1ba4e1de050a53c2b1c
+  /home/fatih/projects/afef/models/echonext_minimodel/tabular_params.npz: bdf71cef35d717f60eb4adac0f934467b21c5d90a034e92ca2fa03a7945817bd
