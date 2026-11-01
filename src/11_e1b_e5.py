@@ -39,7 +39,7 @@ B, SEED, CHUNK = 1000, 20261103, 8192
 
 
 def ci(v):
-    return np.percentile(v, [2.5, 97.5]).round(2).tolist()
+    return np.percentile(v, [2.5, 97.5]).round(4).tolist()
 
 
 def score_two_rules(pairs):
@@ -93,8 +93,8 @@ def simple_metrics(y, s, thr, rng_seed):
     m = W.metrics(T, y, np.ones(len(y)), s, 0)
     rng = np.random.default_rng(rng_seed)
     bs = [W.metrics(T[i], y[i], np.ones(len(i)), s[i], 0) for i in (rng.integers(0, len(y), len(y)) for _ in range(B))]
-    return {k: {"est": round(m[k], 2), "ci": ci([b[k] for b in bs])} for k in ["sens", "spec", "ppv", "npv", "prev", "auroc"]} | \
-           {"pct_test_positive": round(100 * T.mean(), 2)}
+    return {k: {"est": round(m[k], 4), "ci": ci([b[k] for b in bs])} for k in ["sens", "spec", "ppv", "npv", "prev", "auroc"]} | \
+           {"pct_test_positive": round(100 * T.mean(), 4)}
 
 
 def build_e1b_pairs():
@@ -147,7 +147,7 @@ def build_e1b_pairs():
     SELECT subject_id, study_id, measurement_id, d, days FROM f WHERE rp=1 ORDER BY subject_id""").df()
     flow = {"eligible_tte": int(c.execute("SELECT count(*) FROM tte_ok").fetchone()[0]),
                        "eligible_ecg": int(c.execute("SELECT count(*) FROM ecg_ok").fetchone()[0]),
-                       "patients_paired": int(len(pairs)), "median_days_ecg_to_tte": round(float(pairs.days.median()), 2)}
+                       "patients_paired": int(len(pairs)), "median_days_ecg_to_tte": round(float(pairs.days.median()), 4)}
     return pairs, flow
 
 
@@ -197,9 +197,9 @@ def main():
     d0["logit"] = d0.logit_ar0
     d0["positive"] = (1 / (1 + np.exp(-d0.logit)) >= thr).astype(int)
     res["E5_score_shift"] = {"mean_logit_change": round(float((d0.logit_ar0 - d.logit).mean()), 4),
-                             "pct_positive_primary": round(100 * d.positive.mean(), 2),
-                             "pct_positive_ar0": round(100 * d0.positive.mean(), 2),
-                             "pct_test_result_changed": round(100 * (d0.positive != d.positive).mean(), 2)}
+                             "pct_positive_primary": round(100 * d.positive.mean(), 4),
+                             "pct_positive_ar0": round(100 * d0.positive.mean(), 4),
+                             "pct_test_result_changed": round(100 * (d0.positive != d.positive).mean(), 4)}
     X0 = W.design(d0)
     T, V, D, S = d0.positive.to_numpy(int), d0.V30.to_numpy(int), d0.d_v30.to_numpy(float), d0.logit.to_numpy(float)
     N = len(d0)
@@ -217,7 +217,7 @@ def main():
 
     pt = run(np.arange(N))
     bs = Parallel(n_jobs=30)(delayed(run)(np.random.default_rng([SEED, b]).integers(0, N, N)) for b in range(B))
-    res["E5_intended_use_atrial_rate_0"] = {k: {"est": round(v, 2), "ci": ci([b[k] for b in bs])} for k, v in pt.items()}
+    res["E5_intended_use_atrial_rate_0"] = {k: {"est": round(v, 4), "ci": ci([b[k] for b in bs])} for k, v in pt.items()}
     (OUT / "wp3_e1b_e5.json").write_text(json.dumps(res, indent=2))
     print(json.dumps(res, indent=2))
 

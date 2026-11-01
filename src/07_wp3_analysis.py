@@ -115,7 +115,7 @@ def estimate(idx, V, D, full=True):
         out[f"mnar_{lam}"] = metrics(Tm, Dm, wm, sm, 1)
     out["weights"] = {"pct_truncated": 100 * np.mean(w > cap), "cap": cap,
                       "quantiles_untruncated": dict(zip(["min", "p50", "p90", "p99", "max"],
-                                                        np.quantile(w, [0, .5, .9, .99, 1]).round(2).tolist()))}
+                                                        np.quantile(w, [0, .5, .9, .99, 1]).round(4).tolist()))}
     return out
 
 
@@ -144,13 +144,13 @@ def ci(path):
         for kx in path:
             v = v[kx]
         vals.append(v)
-    return np.percentile(vals, [2.5, 97.5]).round(2).tolist()
+    return np.percentile(vals, [2.5, 97.5]).round(4).tolist()
 
 
 def walk(pt, path=()):
     if isinstance(pt, dict):
         return {kx: walk(vx, path + (kx,)) for kx, vx in pt.items()}
-    return {"est": round(float(pt), 2), "ci": ci(path)}
+    return {"est": round(float(pt), 4), "ci": ci(path)}
 
 
 res = walk({kx: {mk: mv for mk, mv in v.items() if mk != "weights"} for kx, v in point.items()})
@@ -189,7 +189,7 @@ res["readout"] = {
     "material_by_lambda": {str(l): material_under(l) for l in LAMBDAS},
     "H1_naive_sens_gt_corrected": ds["est"] > 0, "H1_naive_spec_lt_corrected": dp["est"] < 0,
     "H2_corrected_ppv_lt_naive": res["main"]["delta"]["ppv"]["est"] > 0,
-    "lambda1_minus_ipw": {m: round(res["main"]["mnar_1.0"][m]["est"] - res["main"]["ipw"][m]["est"], 2)
+    "lambda1_minus_ipw": {m: round(res["main"]["mnar_1.0"][m]["est"] - res["main"]["ipw"][m]["est"], 4)
                           for m in ["sens", "spec", "ppv", "npv", "prev", "auroc"]},
 }
 res["meta"] = {"generated_at": datetime.datetime.now().isoformat(timespec="seconds"), "N_analytic": N,

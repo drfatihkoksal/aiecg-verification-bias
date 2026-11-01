@@ -34,11 +34,11 @@ B, SEED, MATERIAL = 1000, 20261102, 5.0
 
 
 def ci(vals):
-    return np.percentile(vals, [2.5, 97.5]).round(2).tolist()
+    return np.percentile(vals, [2.5, 97.5]).round(4).tolist()
 
 
 def est(v, c):
-    return {"est": round(float(v), 2), "ci": c}
+    return {"est": round(float(v), 4), "ci": c}
 
 
 def score_ecgs(pairs):
@@ -147,14 +147,14 @@ def main():
         if np.sign(f(lo)) != np.sign(f(hi)):
             ll = brentq(f, lo, hi, xtol=1e-6)
             mm = mnar(np.exp(ll))
-            tip[name] = {"lambda": round(float(np.exp(ll)), 4), "mnar_sens": round(mm["sens"], 2), "mnar_spec": round(mm["spec"], 2),
-                         "implied_prev_unverified_pct": round(mm["prev_unverified"], 2)}
+            tip[name] = {"lambda": round(float(np.exp(ll)), 4), "mnar_sens": round(mm["sens"], 4), "mnar_spec": round(mm["spec"], 4),
+                         "implied_prev_unverified_pct": round(mm["prev_unverified"], 4)}
         else:
             tip[name] = {"lambda": None, "note": f"no crossing in [{np.exp(lo):g}, {np.exp(hi):g}]"}
     mar = mnar(1.0)
-    res["E2_tipping_points"] = {"naive_sens": round(naive["sens"], 2), "naive_spec": round(naive["spec"], 2),
-                                "prev_verified_pct": round(100 * D[ver].mean(), 2),
-                                "implied_prev_unverified_at_lambda1_pct": round(mar["prev_unverified"], 2), **tip}
+    res["E2_tipping_points"] = {"naive_sens": round(naive["sens"], 4), "naive_spec": round(naive["spec"], 4),
+                                "prev_verified_pct": round(100 * D[ver].mean(), 4),
+                                "implied_prev_unverified_at_lambda1_pct": round(mar["prev_unverified"], 4), **tip}
 
     # ---------- E3 labs
     labs = c.execute(f"""
@@ -173,9 +173,9 @@ def main():
     lb = lb.fillna(lb.median())
     extra = np.column_stack([dl.bnp_measured, lb, dl.trop_measured, dl.trop_elevated])
     X3 = W.design(d, extra)
-    res["E3_labs_availability_pct"] = {"bnp_measured": round(100 * dl.bnp_measured.mean(), 2),
-                                       "trop_measured": round(100 * dl.trop_measured.mean(), 2),
-                                       "trop_elevated": round(100 * dl.trop_elevated.mean(), 2),
+    res["E3_labs_availability_pct"] = {"bnp_measured": round(100 * dl.bnp_measured.mean(), 4),
+                                       "trop_measured": round(100 * dl.trop_measured.mean(), 4),
+                                       "trop_elevated": round(100 * dl.trop_elevated.mean(), 4),
                                        "V30_if_bnp_measured": round(100 * V[dl.bnp_measured == 1].mean(), 1),
                                        "V30_if_trop_measured": round(100 * V[dl.trop_measured == 1].mean(), 1)}
     p3 = W.fit_predict(X3, V, X3)
@@ -219,7 +219,7 @@ def main():
         n_, k_ = int(m_.sum()), int(V[m_].sum())
         z = 1.96; ph = k_ / n_
         den = 1 + z * z / n_; cen = (ph + z * z / (2 * n_)) / den; hw = z * np.sqrt(ph * (1 - ph) / n_ + z * z / (4 * n_ * n_)) / den
-        grad.append({"decile": g + 1, "n": n_, "v30_pct": round(100 * ph, 2), "lo": round(100 * (cen - hw), 2), "hi": round(100 * (cen + hw), 2),
+        grad.append({"decile": g + 1, "n": n_, "v30_pct": round(100 * ph, 4), "lo": round(100 * (cen - hw), 4), "hi": round(100 * (cen + hw), 4),
                      "pct_test_positive": round(100 * T[m_].mean(), 1)})
     r07all = json.loads((OUT / "wp3_results.json").read_text())
     fig = {"roc": {"conventional": roc_pts(Dc.astype(int), Sc), "naive": roc_pts(D[ver].astype(int), sc[ver]),

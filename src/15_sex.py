@@ -71,7 +71,7 @@ def main():
     res = {"generated_at": datetime.datetime.now().isoformat(timespec="seconds"), "status": "EXPLORATORY (post hoc)",
            "n": N, "women_n": {k: int(v["F"].sum()) for k, v in M.items()}}
     for name in M:
-        res[name] = {grp: {k: {"est": round(float(v), 2), "ci": np.percentile([b[name][grp][k] for b in bs], [2.5, 97.5]).round(2).tolist()}
+        res[name] = {grp: {k: {"est": round(float(v), 4), "ci": np.percentile([b[name][grp][k] for b in bs], [2.5, 97.5]).round(4).tolist()}
                            for k, v in vals.items()} for grp, vals in pt[name].items()}
     (OUT / "wp3_sex.json").write_text(json.dumps(res, indent=2))
     for name in M:

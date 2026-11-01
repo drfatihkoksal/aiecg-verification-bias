@@ -42,7 +42,7 @@ def _mod(name, path):
 
 
 def ci(v):
-    return np.percentile(v, [2.5, 97.5]).round(2).tolist()
+    return np.percentile(v, [2.5, 97.5]).round(4).tolist()
 
 
 def score_deepecg(pairs, guard_only=False):
@@ -97,9 +97,9 @@ def main():
     pos_share = float(d.positive.mean())
     thr_match = float(np.quantile(dk.pred_lvef, pos_share))
     res["cohort"] = {"echonext_analytic": int(len(d)), "deepecg_readable": int(len(dk)), "lost": int(len(d) - len(dk)),
-                     "matched_positive_share": round(100 * pos_share, 2), "threshold_matched_pred_lvef": round(thr_match, 3),
-                     "pct_positive_lvef45": round(100 * (dk.pred_lvef <= 45).mean(), 2),
-                     "pred_lvef_quartiles": [round(float(q), 2) for q in np.quantile(dk.pred_lvef, [.25, .5, .75])]}
+                     "matched_positive_share": round(100 * pos_share, 4), "threshold_matched_pred_lvef": round(thr_match, 3),
+                     "pct_positive_lvef45": round(100 * (dk.pred_lvef <= 45).mean(), 4),
+                     "pred_lvef_quartiles": [round(float(q), 4) for q in np.quantile(dk.pred_lvef, [.25, .5, .75])]}
     rules = {"matched": (dk.pred_lvef <= thr_match).astype(int).to_numpy(), "lvef45": (dk.pred_lvef <= 45).astype(int).to_numpy()}
     xD = dk.copy(); xD["logit"] = -dk.pred_lvef
     XD, XE = W.design(xD), W.design(dk)
@@ -142,7 +142,7 @@ def main():
 
     pt = run(np.arange(N), True)
     bs = Parallel(n_jobs=30)(delayed(run)(np.random.default_rng([SEED, b]).integers(0, N, N), True) for b in range(B))
-    res["intended_use"] = {blk: {k: {"est": round(float(v), 2), "ci": ci([b[blk][k] for b in bs])} for k, v in vals.items()}
+    res["intended_use"] = {blk: {k: {"est": round(float(v), 4), "ci": ci([b[blk][k] for b in bs])} for k, v in vals.items()}
                            for blk, vals in pt.items()}
     res["descriptive_gate_naive_auroc_ge_70"] = bool(pt["matched_naive"]["auroc"] >= 70)
 
@@ -169,7 +169,7 @@ def main():
     for rn, T in {"matched": (pk.pred_lvef <= thr_match).astype(int).to_numpy(), "lvef45": (pk.pred_lvef <= 45).astype(int).to_numpy()}.items():
         m = W.metrics(T, y, np.ones(len(y)), s_, 0)
         bs2 = [W.metrics(T[i], y[i], np.ones(len(i)), s_[i], 0) for i in idxs]
-        res["E1b_published_design"][rn] = {k: {"est": round(m[k], 2), "ci": ci([b[k] for b in bs2])} for k in ["sens", "spec", "ppv", "npv", "prev", "auroc"]}
+        res["E1b_published_design"][rn] = {k: {"est": round(m[k], 4), "ci": ci([b[k] for b in bs2])} for k in ["sens", "spec", "ppv", "npv", "prev", "auroc"]}
     (OUT / "wp3_deepecg.json").write_text(json.dumps(res, indent=2, default=lambda o: o.item() if hasattr(o, "item") else str(o)))
     print(json.dumps({k: res[k] for k in ["scored", "cohort", "readout_matched", "descriptive_gate_naive_auroc_ge_70"]}, indent=2, default=lambda o: o.item() if hasattr(o, "item") else str(o)))
 

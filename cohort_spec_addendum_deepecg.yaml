@@ -40,3 +40,15 @@ post_scoring_changes:
   effect: none on scores, thresholds or the estimates reported before the edits; the scores file is unchanged.
   wp3_deepecg_scores.parquet_sha256: 8f8d9597c376f0ebad49bfc938de8b310541ed0eee013bd4b9ada4db1a6117e3
   src/12_deepecg.py_sha256_current: be3f47badc46c6fa55a890a41f490d0583e05a5accec49bbc91bc4d8e10250ed
+- logged_at: '2026-11-01T06:39:17'
+  after_cohort_scoring: true
+  what: 'Output precision raised from 2 to 4 decimals in src/07_wp3_analysis.py, src/09_wp3_exploratory.py, src/11_e1b_e5.py,
+    src/12_deepecg.py and src/15_sex.py (rounding of estimates, bootstrap limits and percentages written to JSON only), so
+    that values printed to 1 decimal are not rounded twice. All five scripts were re-run with the same seeds and cached scores.'
+  effect: 'every estimate and limit in wp3_results.json, wp3_exploratory.json, wp3_e1b_e5.json, wp3_deepecg.json, wp3_sex.json
+    and fig1 data equals the previous value when rounded to 2 decimals (2,271 values checked); readout.lambda1_minus_ipw
+    is now the difference of unrounded estimates. Five values printed to 1 decimal changed by 0.1.'
+  src/11_e1b_e5.py_sha256_current: 8a984043fbe9b9dc5bf70ded37cbb677742de2945c6f4dbbdc096a4f91992a9f
+  src/12_deepecg.py_sha256_current: 06b90ebdb4019e8e7c8f9db7c080fd818b071b5ec5e53087e7d4c33d10007a80
+  wp3_deepecg_scores.parquet_sha256: 8f8d9597c376f0ebad49bfc938de8b310541ed0eee013bd4b9ada4db1a6117e3
+  wp3_e1b_e5_scores.parquet_sha256: 89efbb38ca69b819c5f1d495178df95865f505d325b433a6de2f9b1aaeae101b
