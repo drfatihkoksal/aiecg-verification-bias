@@ -21,7 +21,7 @@ probability weighting, with a missing-not-at-random sensitivity analysis.
 | `cohort_spec_v1.yaml`, `cohort_spec.yaml` | Design frozen before any index ECG was scored, with SHA-256 hashes of inputs, scripts and the protocol snapshot. Version 1 was superseded by version 2 before scoring. |
 | `cohort_spec_addendum_deepecg.yaml` | Second-model analysis, frozen before any DeepECG-SL score was computed; deviations and later changes are logged in the file |
 | `outputs/*.json`, `outputs/wp1_flow.csv`, `outputs/wp3_results.md` | Aggregate results written by the scripts |
-| `outputs/tables/` | Aggregate tables (CSV): cohort characteristics, verification by characteristic, cross-tabulation, severity (from `src/19_aggregate_tables.py`); accuracy by design, setting, sex and sensitivity analysis (formatted from the result JSON files) |
+| `outputs/tables/` | Aggregate tables (CSV): cohort characteristics, verification by characteristic with covariate balance before and after weighting, cross-tabulation, severity (from `src/19_aggregate_tables.py`); accuracy by design, setting, sex and sensitivity analysis (formatted from the result JSON files) |
 | `outputs/figures/` | Figure 1 and the study flow diagram |
 
 No patient-level data are included. Patient-level intermediates (`*.parquet`, scoring chunks, logs and
@@ -77,7 +77,7 @@ Run `upstream/afef/src/` first (see its README), then the scripts below from the
 | Freeze the second-model analysis | `src/12a_freeze_deepecg.py` | `cohort_spec_addendum_deepecg.yaml` |
 | Exploratory: second model, DeepECG-SL | `src/12_deepecg.py` | `outputs/wp3_deepecg.json` |
 | Exploratory: accuracy by sex | `src/15_sex.py` | `outputs/wp3_sex.json` |
-| Aggregate tables from patient-level data | `src/19_aggregate_tables.py` | `outputs/tables/table1.csv`, `s6_verification.csv`, `s7_crosstab.csv`, `s8_severity.csv`, `outputs/cohort_characteristics.json` |
+| Aggregate tables from patient-level data; covariate balance after weighting (exploratory) | `src/19_aggregate_tables.py` | `outputs/tables/table1.csv`, `s6_verification.csv`, `s7_crosstab.csv`, `s8_severity.csv`, `outputs/cohort_characteristics.json`, `outputs/balance.json` |
 | Figure 1 | `src/10_fig1.py` | `outputs/figures/fig1.png`, `.pdf` |
 | Study flow diagram | `src/17_flow_diagram.py` | `outputs/figures/figS1_flow.png`, `.pdf` |
 

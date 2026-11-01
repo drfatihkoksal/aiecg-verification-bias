@@ -1,0 +1,99 @@
+{
+  "note": "standardized difference = (mean among verified, unweighted or IPW-weighted) - (mean in whole cohort), divided by the SD in the whole cohort",
+  "max_abs_unweighted": 0.6632164987389529,
+  "max_abs_weighted": 0.08584551460266099,
+  "rows": {
+    "AI-ECG score (logit), mean": {
+      "unweighted": 0.6632164987389529,
+      "weighted": 0.056772786827620644
+    },
+    "Age, mean": {
+      "unweighted": 0.4055709933750338,
+      "weighted": 0.06853149703239883
+    },
+    "Female": {
+      "unweighted": -0.12862236222620627,
+      "weighted": -0.028456260629073533
+    },
+    "Emergency department": {
+      "unweighted": 0.03626508929312489,
+      "weighted": -0.08584551460266099
+    },
+    "Inpatient": {
+      "unweighted": 0.2695715950003129,
+      "weighted": 0.03272915700941528
+    },
+    "Atrial fibrillation or flutter": {
+      "unweighted": 0.33313240756677837,
+      "weighted": 0.037586309612577445
+    },
+    "Left bundle branch block": {
+      "unweighted": 0.12928848786084693,
+      "weighted": 0.015012091773676173
+    },
+    "Right bundle branch block": {
+      "unweighted": 0.1350036945859772,
+      "weighted": 0.013682007697224748
+    },
+    "Left ventricular hypertrophy": {
+      "unweighted": 0.17972544259746828,
+      "weighted": 0.010383549227327014
+    },
+    "Infarct or Q-wave statement": {
+      "unweighted": 0.31031443985107837,
+      "weighted": 0.023577576506866045
+    },
+    "Low QRS voltage": {
+      "unweighted": 0.1352123304580074,
+      "weighted": 0.004060440827738882
+    },
+    "Hypertension": {
+      "unweighted": 0.45049541943599514,
+      "weighted": 0.0476636605785505
+    },
+    "Diabetes": {
+      "unweighted": 0.28752623757697604,
+      "weighted": 0.0228804642240031
+    },
+    "Chronic kidney disease": {
+      "unweighted": 0.297651868066506,
+      "weighted": 0.01958297571741727
+    },
+    "COPD": {
+      "unweighted": 0.24912052460554462,
+      "weighted": 0.0157817562760576
+    },
+    "Coronary artery disease or MI": {
+      "unweighted": 0.010970195996198962,
+      "weighted": 0.0016608074097599432
+    },
+    "Valve disease or prosthetic valve": {
+      "unweighted": 0.039974979377312626,
+      "weighted": 0.013230226333830654
+    },
+    "TTE in the previous year": {
+      "unweighted": -0.0315675835895365,
+      "weighted": 0.04282873657440331
+    },
+    "ED complaint: dyspnea": {
+      "unweighted": 0.14987435925578008,
+      "weighted": 0.00570803077251543
+    },
+    "ED complaint: chest pain": {
+      "unweighted": 0.032425656821623426,
+      "weighted": -0.04837367012566586
+    },
+    "ED complaint: syncope": {
+      "unweighted": -0.012226236186233959,
+      "weighted": -0.00015241384957105338
+    },
+    "ED complaint: edema": {
+      "unweighted": 0.05848925287624543,
+      "weighted": 0.006430755798608774
+    },
+    "EchoNext-Mini positive": {
+      "unweighted": 0.5329165196548488,
+      "weighted": 0.0326024254270474
+    }
+  }
+}

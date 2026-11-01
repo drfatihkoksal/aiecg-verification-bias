@@ -1,19 +1,24 @@
-Characteristic,"Present, n","Verified if present, %","Verified if absent, %"
-Atrial fibrillation or flutter,"9,586",38.1,15.1
-Left bundle branch block,"2,333",33.9,16.3
-Right bundle branch block,"7,020",26.9,16.0
-Left ventricular hypertrophy,"9,863",28.0,15.8
-Infarct or Q-wave statement,"23,182",28.9,14.4
-Low QRS voltage,"10,796",24.8,15.9
-Hypertension,"30,822",31.6,12.9
-Diabetes,"12,876",32.4,15.1
-Chronic kidney disease,"6,453",40.3,15.5
-COPD,"4,819",39.7,15.8
-Coronary artery disease or MI,730,19.2,16.5
-Valve disease or prosthetic valve,682,26.5,16.5
-TTE in the previous year,"5,251",13.7,16.6
-ED complaint: dyspnea,"4,626",30.8,16.1
-ED complaint: chest pain,"9,309",18.7,16.4
-ED complaint: syncope,"3,334",15.1,16.6
-ED complaint: edema,432,35.0,16.5
-EchoNext-Mini positive,"19,923",39.7,13.2
+Characteristic,"Present, n","Verified if present, %","Verified if absent, %","Std difference, unweighted","Std difference, weighted"
+"AI-ECG score (logit), mean",—,—,—,0.66,0.06
+"Age, mean",—,—,—,0.41,0.07
+Female,"82,861",14.5,18.8,−0.13,−0.03
+Emergency department,"51,570",17.4,16.1,0.04,−0.09
+Inpatient,"23,501",27.2,14.7,0.27,0.03
+Atrial fibrillation or flutter,"9,586",38.1,15.1,0.33,0.04
+Left bundle branch block,"2,333",33.9,16.3,0.13,0.02
+Right bundle branch block,"7,020",26.9,16.0,0.14,0.01
+Left ventricular hypertrophy,"9,863",28.0,15.8,0.18,0.01
+Infarct or Q-wave statement,"23,182",28.9,14.4,0.31,0.02
+Low QRS voltage,"10,796",24.8,15.9,0.14,0.00
+Hypertension,"30,822",31.6,12.9,0.45,0.05
+Diabetes,"12,876",32.4,15.1,0.29,0.02
+Chronic kidney disease,"6,453",40.3,15.5,0.30,0.02
+COPD,"4,819",39.7,15.8,0.25,0.02
+Coronary artery disease or MI,730,19.2,16.5,0.01,0.00
+Valve disease or prosthetic valve,682,26.5,16.5,0.04,0.01
+TTE in the previous year,"5,251",13.7,16.6,−0.03,0.04
+ED complaint: dyspnea,"4,626",30.8,16.1,0.15,0.01
+ED complaint: chest pain,"9,309",18.7,16.4,0.03,−0.05
+ED complaint: syncope,"3,334",15.1,16.6,−0.01,0.00
+ED complaint: edema,432,35.0,16.5,0.06,0.01
+EchoNext-Mini positive,"19,923",39.7,13.2,0.53,0.03

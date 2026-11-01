@@ -1,7 +1,9 @@
 """Aggregate tables that need patient-level data, written as CSV (aggregates only).
 
   outputs/tables/table1.csv            cohort characteristics by verification status
-  outputs/tables/s6_verification.csv   verification within 30 days by recorded characteristic
+  outputs/tables/s6_verification.csv   verification within 30 days by recorded characteristic, and covariate balance
+                                       (standardized differences, verified vs whole cohort, before and after weighting)
+  outputs/balance.json                 the standardized differences, unrounded
   outputs/tables/s7_crosstab.csv       index test against reference standard among verified patients (STARD 2015 item 23)
   outputs/tables/s8_severity.csv       severity of LVSD among verified cases, naive sensitivity by severity (item 21a)
   outputs/cohort_characteristics.json  cohort shares used in the text (setting, age, sex, positive EchoNext-Mini)
@@ -21,7 +23,7 @@ thr_d = dg["cohort"]["threshold_matched_pred_lvef"]
 
 k = pd.read_parquet(OUT / "wp1_cohort.parquet"); x = pd.read_parquet(OUT / "wp1b_covariates.parquet"); s = pd.read_parquet(OUT / "wp2_scores.parquet")
 dgs = pd.read_parquet(OUT / "wp3_deepecg_scores.parquet")
-d = k.merge(x, on=["subject_id", "study_id"]).merge(s[["subject_id", "positive", "technical_exclusion"]], on="subject_id")
+d = k.merge(x, on=["subject_id", "study_id"]).merge(s[["subject_id", "positive", "technical_exclusion", "logit"]], on="subject_id")
 d = d[~d.technical_exclusion].merge(dgs, on=["subject_id", "study_id"], how="left").reset_index(drop=True)
 d["dg_pos"] = np.where(d.pred_lvef.isna(), np.nan, (d.pred_lvef <= thr_d).astype(float))
 
@@ -73,19 +75,51 @@ pd.DataFrame(rows).to_csv(TAB / "table1.csv", index=False)
     "pct_inpatient": 100 * float((d.setting == "inpatient").mean()), "age_median": float(d.age.median()),
     "pct_female": 100 * float((d.gender == "F").mean()), "pct_positive_echonext": 100 * float((d.positive == 1).mean())}, indent=2))
 
-# ---------------- S6: verification by recorded characteristic
-FL = [("Atrial fibrillation or flutter", "ecg_af_flutter"), ("Left bundle branch block", "ecg_lbbb"), ("Right bundle branch block", "ecg_rbbb"),
+# ---------------- S6: verification by recorded characteristic, and covariate balance after weighting
+# Weights exactly as in the primary analysis (src/07 via src/wp3_design.py): verification model on the whole cohort,
+# w = 1/p among verified patients, truncated at the 99th percentile.
+import sys
+sys.path.insert(0, str(P / "src"))
+import wp3_design as W  # noqa: E402
+dw = W.load()
+Xw = W.design(dw); verw = dw.V30.to_numpy(int) == 1
+ww = W.truncate(1 / W.fit_predict(Xw, dw.V30.to_numpy(int), Xw[verw]), 0.99)
+wmap = pd.Series(ww, index=dw.subject_id[verw].to_numpy())
+
+
+def smd(v):
+    """Standardized difference of verified patients from the whole cohort, unweighted and weighted."""
+    v = pd.Series(v, index=d.subject_id).astype(float); m_all, s_all = v.mean(), v.std()
+    vv = v[d.V30.to_numpy() == 1]; wv = wmap.reindex(vv.index).to_numpy()
+    return (vv.mean() - m_all) / s_all, (np.average(vv, weights=wv) - m_all) / s_all
+
+
+FL = [("Female", "female"), ("Emergency department", "set_ed"), ("Inpatient", "set_inpatient"),
+      ("Atrial fibrillation or flutter", "ecg_af_flutter"), ("Left bundle branch block", "ecg_lbbb"), ("Right bundle branch block", "ecg_rbbb"),
       ("Left ventricular hypertrophy", "ecg_lvh"), ("Infarct or Q-wave statement", "ecg_infarct_q"), ("Low QRS voltage", "ecg_low_voltage"),
       ("Hypertension", "hx_htn"), ("Diabetes", "hx_dm"), ("Chronic kidney disease", "hx_ckd"), ("COPD", "hx_copd"),
       ("Coronary artery disease or MI", "prior_cad_mi"), ("Valve disease or prosthetic valve", "prior_valve"), ("TTE in the previous year", "prior_tte_365"),
       ("ED complaint: dyspnea", "ed_cc_dyspnoea"), ("ED complaint: chest pain", "ed_cc_chest_pain"), ("ED complaint: syncope", "ed_cc_syncope"),
       ("ED complaint: edema", "ed_cc_oedema"), ("EchoNext-Mini positive", None)]
-rows = []
+d["female"] = d.gender == "F"; d["set_ed"] = d.setting == "ED"; d["set_inpatient"] = d.setting == "inpatient"
+assert set(d.subject_id[d.V30 == 1]) == set(wmap.index)
+rows, bal = [], {}
+f2 = lambda x: f"{x + 0.0:.2f}".replace("-0.00", "0.00").replace("-", "\u2212")   # no negative zero
+for lab_, v in [("AI-ECG score (logit), mean", d.logit), ("Age, mean", d.age)]:
+    a, b = smd(v.to_numpy(float)); bal[lab_] = {"unweighted": a, "weighted": b}
+    rows.append({"Characteristic": lab_, "Present, n": "\u2014", "Verified if present, %": "\u2014", "Verified if absent, %": "\u2014",
+                 "Std difference, unweighted": f2(a), "Std difference, weighted": f2(b)})
 for lab_, col in FL:
     mask = (d.positive == 1) if col is None else d[col].astype(bool)
+    a, b = smd(mask.to_numpy(float)); bal[lab_] = {"unweighted": a, "weighted": b}
     rows.append({"Characteristic": lab_, "Present, n": f"{int(mask.sum()):,}", "Verified if present, %": f"{100 * d.V30[mask].mean():.1f}",
-                 "Verified if absent, %": f"{100 * d.V30[~mask].mean():.1f}"})
+                 "Verified if absent, %": f"{100 * d.V30[~mask].mean():.1f}",
+                 "Std difference, unweighted": f2(a), "Std difference, weighted": f2(b)})
 pd.DataFrame(rows).to_csv(TAB / "s6_verification.csv", index=False)
+(OUT / "balance.json").write_text(json.dumps({
+    "note": "standardized difference = (mean among verified, unweighted or IPW-weighted) - (mean in whole cohort), divided by the SD in the whole cohort",
+    "max_abs_unweighted": max(abs(x["unweighted"]) for x in bal.values()), "max_abs_weighted": max(abs(x["weighted"]) for x in bal.values()),
+    "rows": bal}, indent=2))
 
 # ---------------- S7: index test by reference standard among verified patients
 ver = d[d.V30 == 1]
@@ -118,4 +152,4 @@ for sev in ["≤30%", "31%-40%", "41%-45%", "Qualitative only"]:
                  "EchoNext-Mini positive, %": f"{100 * (c.positive == 1).mean():.1f}",
                  "DeepECG-SL positive, %": f"{100 * (c.pred_lvef <= thr_d)[c.pred_lvef.notna()].mean():.1f}"})
 pd.DataFrame(rows).to_csv(TAB / "s8_severity.csv", index=False)
-print("written:", ", ".join(["table1.csv", "s6_verification.csv", "s7_crosstab.csv", "s8_severity.csv", "cohort_characteristics.json"]))
+print("written:", ", ".join(["table1.csv", "s6_verification.csv", "s7_crosstab.csv", "s8_severity.csv", "cohort_characteristics.json", "balance.json"]))
